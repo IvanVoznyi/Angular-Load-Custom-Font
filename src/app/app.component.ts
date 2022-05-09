@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { FontStatus, LoadFontService } from './services/loadfont.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-load-font';
+  fontStatus$: Observable<FontStatus>
+
+  constructor(loadFontService: LoadFontService){
+    loadFontService.fontStatus$.subscribe(console.log)
+    this.fontStatus$ = loadFontService.fontStatus$.asObservable()
+  }
 }
